@@ -12,9 +12,36 @@ export async function GET() {
 export async function POST(req: Request, res: NextResponse) {
   try {
     const { data } = await req.json();
-    await prisma.todo.create({ data: { content: data } });
-    return NextResponse.json(data);
+    if (data.function === "create") {
+      const todo = {
+        content: data.content,
+        checked: false,
+      };
+      await prisma.todo.create({ data: todo });
+      return NextResponse.json(data);
+    }
+    if (data.function === "update") {
+      const todo = {
+        content: data.todo.content,
+        checked: data.todo.checked === "true" ? true : false,
+      };
+      await prisma.todo.update({
+        where: {
+          id: data.todo.id,
+        },
+        data: todo,
+      });
+      return NextResponse.json(data);
+    }
+    if (data.function === "delete") {
+      await prisma.todo.delete({
+        where: {
+          id: data.id,
+        },
+      });
+      return NextResponse.json(data);
+    }
   } catch (error) {
-    return res.json();
+    return NextResponse.json(error);
   }
 }

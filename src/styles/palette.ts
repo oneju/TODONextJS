@@ -1,0 +1,17 @@
+export default {
+  red: "#FFAFB0",
+  orange: "#FFC282",
+  yellow: "#FCFFB0",
+  green: "#E2FFAF",
+  blue: "#AEE4FF",
+  navy: "#B4C7ED",
+  dark_red: "#D76769",
+  dark_orange: "#E89946",
+  dark_yellow: "#D3D619",
+  dark_green: "#B7D87D",
+  dark_blue: "#5FAAD0",
+  dark_navy: "#567CC9",
+  gray: "#E5E5E5",
+  deep_red: "#F35456",
+  deep_green: "#47E774",
+};
