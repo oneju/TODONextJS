@@ -11,7 +11,7 @@ const Login = () => {
       username: emailRef.current,
       password: passwordRef.current,
       redirect: true,
-      callbackUrl: "/",
+      callbackUrl: "/todo",
     });
   };
   return (
@@ -41,6 +41,7 @@ const Login = () => {
           ></input>
         </div>
         <button onClick={handleSubmit}>Log in</button>
+        <a href="/signup">Sign Up</a>
       </div>
     </main>
   );
