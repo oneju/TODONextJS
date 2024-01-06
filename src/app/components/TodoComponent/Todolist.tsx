@@ -1,7 +1,6 @@
 "use client";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import TodoComponent from "./TodoComponent";
 
 const TodoList = () => {

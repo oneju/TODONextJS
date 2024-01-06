@@ -25,7 +25,7 @@ const NewTodo = () => {
     mutationFn: postTodo,
     onSuccess: () => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["addTodo"] });
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
   return (
@@ -34,6 +34,7 @@ const NewTodo = () => {
         onChange={(e) => setNewTodo(e.target.value)}
         value={newTodo}
         placeholder="new todo content"
+        autoFocus={true}
       />
       <SubmitButton
         onClick={() => {

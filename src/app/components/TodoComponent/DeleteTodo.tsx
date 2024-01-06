@@ -23,7 +23,7 @@ const DeleteTodo = ({ id, deleteBox, appear }: Props) => {
   const mutation = useMutation({
     mutationFn: deleteTodo,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["deleteTodo"] });
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
   return (
@@ -36,7 +36,9 @@ const DeleteTodo = ({ id, deleteBox, appear }: Props) => {
         deleteBox(false);
       }}
       appear={appear ? "true" : "false"}
-    ></DeleteBox>
+    >
+      {appear && "DELETE"}
+    </DeleteBox>
   );
 };
 export default DeleteTodo;
