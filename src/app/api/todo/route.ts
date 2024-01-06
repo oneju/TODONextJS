@@ -1,17 +1,26 @@
 import { NextResponse } from "next/server";
 import prisma from "@/app/lib/prisma";
 
-interface RequestBody {
-  content: string;
-}
-export async function GET() {
-  const todos = await prisma.todo.findMany();
-  return new Response(JSON.stringify(todos));
-}
-
 export async function POST(req: Request, res: NextResponse) {
   try {
     const { data } = await req.json();
+
+    if (data.function === "read") {
+      const user = await prisma.user.findUnique({
+        where: { id: data.userId },
+        select: {
+          todos: {
+            select: {
+              id: true,
+              content: true,
+              checked: true,
+            },
+          },
+        },
+      });
+      return NextResponse.json(user?.todos);
+    }
+
     if (data.function === "create") {
       const todo = {
         content: data.content,

@@ -1,7 +1,8 @@
+import { AuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const handler = NextAuth({
+export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
@@ -16,7 +17,7 @@ const handler = NextAuth({
       },
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
-        const res = await fetch(`${process.env.NEXTAUTH_URL}/api/login`, {
+        const res = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -53,6 +54,7 @@ const handler = NextAuth({
   pages: {
     signIn: "/signin",
   },
-});
+};
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
