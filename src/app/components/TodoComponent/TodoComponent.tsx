@@ -44,7 +44,7 @@ const TodoComponent = ({
   const mutation = useMutation({
     mutationFn: updateTodo,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["updateTodo"] });
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
   return (
