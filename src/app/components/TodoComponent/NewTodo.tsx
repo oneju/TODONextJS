@@ -3,10 +3,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import styled from "@emotion/styled";
+import { useSession } from "next-auth/react";
 
 const NewTodo = () => {
   const [newTodo, setNewTodo] = useState("");
   const queryClient = useQueryClient();
+  const { data: session } = useSession();
 
   const postTodo = async () => {
     await axios
@@ -15,6 +17,7 @@ const NewTodo = () => {
         data: {
           function: "create",
           content: newTodo,
+          user: session?.user.id,
         },
       })
       .then((res) => console.log(res));
@@ -70,7 +73,6 @@ const TodoContent = styled.input`
   font-weight: bold;
   background-color: transparent;
   color: #fff;
-  /* position: relative; */
   width: 80vw;
 
   font-size: 2rem;
