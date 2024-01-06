@@ -8,7 +8,13 @@ interface RequestBody {
 }
 
 export async function POST(request: Request) {
-  const body: RequestBody = await request.json();
+  const { body } = await request.json();
+  const findUser = await prisma.user.findFirst({
+    where: {
+      email: body.email,
+    },
+  });
+  if (findUser) return new Response(JSON.stringify(null));
 
   const user = await prisma.user.create({
     data: {
@@ -18,5 +24,7 @@ export async function POST(request: Request) {
     },
   });
   const { password, ...result } = user;
-  return new Response(JSON.stringify(result));
+  const res = new Response(JSON.stringify(result));
+  console.log(res);
+  return res;
 }
