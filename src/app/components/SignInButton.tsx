@@ -7,7 +7,7 @@ function SignInButton() {
   if (session && session.user) {
     return (
       <div className="space-x-10">
-        <button onClick={() => signOut()}>
+        <button onClick={() => signOut({ callbackUrl: "/signin" })}>
           {session.user?.name}님 Log Out
         </button>
       </div>
