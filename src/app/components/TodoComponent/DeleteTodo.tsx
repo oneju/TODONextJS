@@ -42,11 +42,18 @@ const DeleteTodo = ({ id, deleteBox, appear }: Props) => {
   );
 };
 export default DeleteTodo;
-const DeleteBox = styled.div<{ appear: string }>`
-  transition: all 0.5s ease-out;
+const DeleteBox = styled.button<{ appear: string }>`
+  color: #fff;
   background-color: ${palette.red};
-  width: ${(props) => (props.appear === "true" ? "100%" : "0")};
+  padding: 1rem;
+  width: 5.5rem;
+  border-radius: 2.5rem;
+  font-size: 0.7rem;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   text-align: center;
-  padding: 1rem 0;
-  height: 100%;
+  :hover,
+  :active {
+    background-color: ${palette.dark_red};
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  }
 `;

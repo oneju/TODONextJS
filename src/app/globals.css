@@ -87,12 +87,6 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 }
 
 a {
@@ -103,6 +97,12 @@ input {
   outline: none;
   border: 0;
   background-color: transparent;
+}
+button {
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  transition: all 0.2s ease-out;
 }
 
 @media (prefers-color-scheme: dark) {
