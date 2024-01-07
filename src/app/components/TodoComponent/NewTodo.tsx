@@ -12,16 +12,14 @@ const NewTodo = () => {
   const { data: session } = useSession();
 
   const postTodo = async () => {
-    await axios
-      .post("/api/todo", {
-        headers: { "Content-Type": "application/json" },
-        data: {
-          function: "create",
-          content: newTodo,
-          user: session?.user.id,
-        },
-      })
-      .then((res) => console.log(res));
+    await axios.post("/api/todo", {
+      headers: { "Content-Type": "application/json" },
+      data: {
+        function: "create",
+        content: newTodo,
+        user: session?.user.id,
+      },
+    });
     setNewTodo("");
   };
 
