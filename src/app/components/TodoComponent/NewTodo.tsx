@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { useSession } from "next-auth/react";
+import palette from "@/styles/palette";
 
 const NewTodo = () => {
   const [newTodo, setNewTodo] = useState("");
@@ -43,8 +44,9 @@ const NewTodo = () => {
         onClick={() => {
           mutation.mutate();
         }}
+        disabled={newTodo === "" ? true : false}
       >
-        Add Todo
+        add
       </SubmitButton>
     </AddTodo>
   );
@@ -55,16 +57,22 @@ const AddTodo = styled.form`
   display: flex;
 
   background-color: #d9d9d9;
-  width: 70vw;
+  width: 80%;
   bottom: 0px;
   position: absolute;
-  padding: 2rem 3rem 2rem 3rem;
-  border-radius: 4rem 4rem 0 0;
-  margin-top: 1rem;
+  padding: 2rem;
+  border-radius: 4rem;
+  margin: 1rem;
+
+  background: #d9d9d9;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
   align-items: center;
-  @media (max-width: 1120px) {
-    width: 90vw;
+  @media (max-width: 600px) {
+    box-shadow: 0;
+    margin: 0;
+    width: 100vw;
+    border-radius: 0;
   }
 `;
 const TodoContent = styled.input`
@@ -73,12 +81,11 @@ const TodoContent = styled.input`
   font-weight: bold;
   background-color: transparent;
   color: #fff;
-  width: 80vw;
+  width: 100%;
 
   font-size: 2rem;
 
   padding: 1rem;
-  border-bottom: 4px solid #fff;
   align-items: center;
   ::placeholder {
     color: #eee;
@@ -86,9 +93,14 @@ const TodoContent = styled.input`
 `;
 const SubmitButton = styled.button`
   display: flex;
-  padding: 1rem;
-  font-size: large;
-  border-radius: 50%;
-  color: white;
-  background-color: transparent;
+  padding: 1rem 1.5rem;
+  font-size: 2rem;
+  border-radius: 2.5rem;
+  color: ${palette.dark_gray};
+  background-color: ${palette.light_gray};
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  :hover,
+  :active {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  }
 `;

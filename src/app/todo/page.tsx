@@ -11,18 +11,28 @@ const Todo = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <TodoHeader />
-
       <TodoPage>
-        <TodoList />
-        <NewTodo />
+        <Size>
+          <TodoHeader />
+          <TodoList />
+          <NewTodo />
+        </Size>
       </TodoPage>
     </QueryClientProvider>
   );
 };
 export default Todo;
 const TodoPage = styled.main`
-  height: 100vh;
+  width: 100vw;
+  @media (min-width: 960px) {
+    width: 900px;
+    margin: auto;
+  }
+`;
+const Size = styled.div`
+  width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 `;

@@ -21,19 +21,17 @@ const TodoComponent = ({
   const contentRef = useRef<HTMLInputElement>(null);
 
   const updateTodo = async () => {
-    await axios
-      .post("/api/todo", {
-        headers: { "Content-Type": "application/json" },
-        data: {
-          function: "update",
-          todo: {
-            id: id,
-            content: newContent,
-            checked: isChecked,
-          },
+    await axios.post("/api/todo", {
+      headers: { "Content-Type": "application/json" },
+      data: {
+        function: "update",
+        todo: {
+          id: id,
+          content: newContent,
+          checked: isChecked,
         },
-      })
-      .then((res) => console.log(res));
+      },
+    });
   };
   const checkTodo = () => {
     setIsChecked(isChecked === "true" ? "false" : "true");
@@ -55,7 +53,6 @@ const TodoComponent = ({
         setDoDelete(!doDelete);
       }}
     >
-      <DeleteTodo id={id} deleteBox={setDoDelete} appear={doDelete} />
       <Content
         type="text"
         ref={contentRef}
@@ -65,7 +62,13 @@ const TodoComponent = ({
         ischecked={isChecked}
         value={newContent}
       />
-      <CheckButton onClick={checkTodo} ischecked={isChecked} />
+      {doDelete ? (
+        <DeleteTodo id={id} deleteBox={setDoDelete} appear={doDelete} />
+      ) : (
+        <CheckButton onClick={checkTodo} ischecked={isChecked}>
+          {isChecked === "true" ? "done" : "todo"}
+        </CheckButton>
+      )}
     </Container>
   );
 };
@@ -77,23 +80,22 @@ const Container = styled.li`
   align-items: center;
   width: 100%;
   height: 52px;
-  border-bottom: 1px solid ${palette.gray};
 `;
 
 const Content = styled.input<{ ischecked: string }>`
-  color: ${(props) => (props.ischecked === "true" ? palette.gray : "black")};
+  color: ${(props) =>
+    props.ischecked === "true" ? palette.gray : palette.black};
   text-decoration: ${(props) =>
     props.ischecked === "true" ? "line-through" : "none"};
-  margin-left: 12px;
   font-size: 16px;
-  width: 80vw;
+  /* width: 80vw; */
 `;
 const CheckButton = styled.button<{ ischecked: string }>`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1px solid ${palette.red};
-  background-color: ${(props) =>
-    props.ischecked === "true" ? palette.deep_red : "transparent"};
+  color: ${(props) =>
+    props.ischecked === "true" ? palette.black : palette.gray};
   outline: none;
+  text-align: center;
+  width: 5.5rem;
+  padding: 1rem;
+  font-size: 1rem;
 `;

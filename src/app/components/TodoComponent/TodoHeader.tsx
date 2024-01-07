@@ -8,17 +8,19 @@ const TodoHeader = () => {
 
   return (
     <Container>
-      <Nickname>{user}</Nickname>
+      <Nickname>{user}의 TO-DO</Nickname>
       <SignInButton />
     </Container>
   );
 };
 export default TodoHeader;
 const Container = styled.div`
-  width: 80%;
+  width: 100%;
   align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 1.5rem;
 `;
 const Nickname = styled.h1``;
