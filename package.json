@@ -14,7 +14,8 @@
     "@prisma/client": "^5.7.1",
     "axios": "^1.6.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-spinners": "^0.13.8"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
