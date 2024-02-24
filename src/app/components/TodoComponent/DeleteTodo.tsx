@@ -36,6 +36,7 @@ const DeleteTodo = ({ id, deleteBox, appear }: Props) => {
         deleteBox(false);
       }}
       appear={appear ? "true" : "false"}
+      disabled={!appear}
     >
       {appear && "DELETE"}
     </DeleteBox>
@@ -43,13 +44,13 @@ const DeleteTodo = ({ id, deleteBox, appear }: Props) => {
 };
 export default DeleteTodo;
 const DeleteBox = styled.button<{ appear: string }>`
+  width: ${props => props.appear === "true" ? '5.5rem' : '0'};
   color: #fff;
-  background-color: ${palette.red};
-  padding: 1rem;
-  width: 5.5rem;
+  background-color: ${props=>props.appear==='true'?palette.red:'transparent'};
+  padding: ${props=>props.appear==='true'?'1rem':'0'};
   border-radius: 2.5rem;
   font-size: 0.7rem;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: ${props=>props.appear==='true'?"0px 4px 4px 0px rgba(0, 0, 0, 0.25)":'0'};
   text-align: center;
   :hover,
   :active {
