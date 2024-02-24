@@ -1,14 +1,15 @@
 "use client";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import React from "react";
 import styled from "@emotion/styled";
 import palette from "@/styles/palette";
 import { redirect } from 'next/navigation';
+import { orbit } from "../utils/fonts";
 function SignOutButton() {
   const { data: session } = useSession();
   if (session && session.user) {
     return (
-      <Button onClick={() => signOut({ callbackUrl: "/auth/signin" })}>
+      <Button className={orbit.className} onClick={() => signOut({ callbackUrl: "/auth/signin" })}>
         logout
       </Button>
     );

@@ -1,20 +1,31 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { signIn } from "next-auth/react";
 import styled from "@emotion/styled";
 import palette from "@/styles/palette";
+import { useRouter } from "next/navigation";
+import { inter } from "@/app/utils/fonts";
 
 const Login = () => {
+  const router = useRouter();
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
+  const [isError, setIsError] = useState('');
   const handleSubmit = async () => {
+    if(!emailRef || !passwordRef) return setIsError('빈 칸이 존재합니다.')
     const result = await signIn("credentials", {
       username: emailRef.current,
       password: passwordRef.current,
-      redirect: true,
-      callbackUrl: "/todo",
+      redirect: false,
     });
+
+    if (result && result.status===401) {
+      setIsError('로그인에 실패했습니다.');
+    }
+    else {
+      router.push('/todo')
+    }
   };
   return (
     <LoginPage>
@@ -22,7 +33,7 @@ const Login = () => {
       <LoginContainer>
         <Input
           ref={emailRef}
-          onChange={(e: any) => (emailRef.current = e.target.value)}
+          onChange={(e: any) => { setIsError(''); return(emailRef.current = e.target.value)}}
           id="email"
           name="email"
           type="email"
@@ -32,15 +43,15 @@ const Login = () => {
         ></Input>
         <Input
           ref={passwordRef}
-          onChange={(e: any) => (passwordRef.current = e.target.value)}
+          onChange={(e: any) => { setIsError(''); return (passwordRef.current = e.target.value) }}
           id="password"
           name="password"
           type="password"
           placeholder="enter password"
         ></Input>
-
+        <ErrorMsg className={inter.className}>{isError}</ErrorMsg>
         <Button onClick={handleSubmit}>Log in</Button>
-        <a href="/signup">sign Up</a>
+        <a href="/auth/signup">sign Up</a>
       </LoginContainer>
     </LoginPage>
   );
@@ -78,6 +89,12 @@ const Input = styled.input`
     text-decoration-line: underline;
     color: ${palette.gray};
   }
+`;
+const ErrorMsg = styled.p`
+  color:${palette.red};
+  height: 1rem;
+  font-size: 0.7rem;
+  margin-bottom: 1rem;
 `;
 const Button = styled.button`
   border-radius: 2.5rem;
