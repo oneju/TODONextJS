@@ -84,9 +84,8 @@ const Button = styled.button`
   background: ${palette.dark_gray};
   color: #fff;
   font-size: 1.25rem;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   padding: 1rem 2rem;
-  :active {
+  :focus,:hover {
     background: #cecece;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
   }

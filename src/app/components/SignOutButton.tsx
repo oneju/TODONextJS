@@ -3,23 +3,20 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import React from "react";
 import styled from "@emotion/styled";
 import palette from "@/styles/palette";
-function SignInButton() {
+import { redirect } from 'next/navigation';
+function SignOutButton() {
   const { data: session } = useSession();
   if (session && session.user) {
     return (
-      <Button onClick={() => signOut({ callbackUrl: "/signin" })}>
+      <Button onClick={() => signOut({ callbackUrl: "/auth/signin" })}>
         logout
       </Button>
     );
   }
-  return (
-    <div className="space-x-10">
-      <Button onClick={() => signIn()}>LogIn</Button>
-    </div>
-  );
+  return redirect('/auth/signin');
 }
 
-export default SignInButton;
+export default SignOutButton;
 const Button = styled.button`
   border-radius: 1.5rem;
   background: #fff;

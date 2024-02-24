@@ -1,6 +1,6 @@
 "use client";
 import styled from "@emotion/styled";
-import SignInButton from "../SignInButton";
+import SignOutButton from "../SignOutButton";
 import { useSession } from "next-auth/react";
 const TodoHeader = () => {
   const { data: session } = useSession();
@@ -9,7 +9,7 @@ const TodoHeader = () => {
   return (
     <Container>
       <Nickname>{user}의 TO-DO</Nickname>
-      <SignInButton />
+      <SignOutButton />
     </Container>
   );
 };
