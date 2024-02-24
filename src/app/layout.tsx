@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { Orbit } from "next/font/google";
 import "./globals.css";
 import Providers from "./components/Providers";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
-
-const orbit = Orbit({ subsets: ['latin'], weight:['400'], });
+import { orbit } from "./utils/fonts";
 
 export const metadata: Metadata = {
   title: "TO-DO",

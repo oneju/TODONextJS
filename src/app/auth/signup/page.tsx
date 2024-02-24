@@ -2,14 +2,26 @@
 import palette from "@/styles/palette";
 import styled from "@emotion/styled";
 import axios from "axios";
-import { signIn } from "next-auth/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { inter } from "@/app/utils/fonts";
+
 const Signup = () => {
+  const router = useRouter();
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const [isError, setIsError] = useState('');
+
+  
+  const emailValidChk = () => {
+    const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-za-z0-9\-]+/;
+    return pattern.test(emailRef.current?emailRef.current:'');
+  }
 
   const handleSubmit = async () => {
+    if (!emailValidChk() || !nameRef.current || !emailRef.current || !passwordRef.current)
+      return setIsError('입력값을 확인해주세요.');
     const res = await axios
       .post("/api/auth/user", {
         headers: {
@@ -21,8 +33,11 @@ const Signup = () => {
           password: passwordRef.current,
         },
       })
-      .then((res) => {});
-    signIn(undefined, { callbackUrl: "/" });
+      .then((res) => res);
+    if (res.data) return router.push('/auth/signin');
+    else {
+      setIsError('중복된 이메일입니다.')
+    }
   };
 
   return (
@@ -31,16 +46,17 @@ const Signup = () => {
       <Container>
         <Input
           ref={nameRef}
-          onChange={(e: any) => (nameRef.current = e.target.value)}
+          onChange={(e: any) => { setIsError(''); return (nameRef.current = e.target.value)}}
           id="name"
           name="name"
           type="string"
           autoFocus={true}
           placeholder="enter nickname"
+          required
         ></Input>
         <Input
           ref={emailRef}
-          onChange={(e: any) => (emailRef.current = e.target.value)}
+          onChange={(e: any) => { setIsError(''); return (emailRef.current = e.target.value)}}
           id="email"
           name="email"
           type="email"
@@ -49,12 +65,14 @@ const Signup = () => {
         ></Input>
         <Input
           ref={passwordRef}
-          onChange={(e: any) => (passwordRef.current = e.target.value)}
+          onChange={(e: any) => { setIsError(''); return (passwordRef.current = e.target.value)}}
           id="password"
           name="password"
           type="password"
           placeholder="enter password"
+          required
         ></Input>
+        <ErrorMsg className={inter.className}>{isError}</ErrorMsg>
         <Button onClick={handleSubmit}>Join</Button>
       </Container>
     </SignupContainer>
@@ -93,6 +111,12 @@ const Input = styled.input`
     text-decoration-line: underline;
     color: ${palette.gray};
   }
+`;
+const ErrorMsg = styled.p`
+  color:${palette.red};
+  height: 1rem;
+  font-size: 0.7rem;
+  margin-bottom: 1rem;
 `;
 const Button = styled.button`
   border-radius: 2.5rem;
