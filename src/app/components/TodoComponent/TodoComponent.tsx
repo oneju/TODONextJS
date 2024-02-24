@@ -62,13 +62,12 @@ const TodoComponent = ({
         ischecked={isChecked}
         value={newContent}
       />
-      {doDelete ? (
+      <CheckTodo>
         <DeleteTodo id={id} deleteBox={setDoDelete} appear={doDelete} />
-      ) : (
-        <CheckButton onClick={checkTodo} ischecked={isChecked}>
-          {isChecked === "true" ? "done" : "todo"}
+        <CheckButton onClick={checkTodo} ischecked={isChecked} appear={doDelete}>
+          {doDelete?'':isChecked === "true" ? "done" : "todo"}
         </CheckButton>
-      )}
+      </CheckTodo>
     </Container>
   );
 };
@@ -79,7 +78,7 @@ const Container = styled.li`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 52px;
+  height: 60px;
 `;
 
 const Content = styled.input<{ ischecked: string }>`
@@ -87,15 +86,22 @@ const Content = styled.input<{ ischecked: string }>`
     props.ischecked === "true" ? palette.gray : palette.black};
   text-decoration: ${(props) =>
     props.ischecked === "true" ? "line-through" : "none"};
-  font-size: 16px;
-  /* width: 80vw; */
+  margin-left:1rem;
+  font-size: 1.5rem;
 `;
-const CheckButton = styled.button<{ ischecked: string }>`
+const CheckTodo = styled.div`
+  width: 6rem;
+  height: 100%;
+  transition: all 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+`;
+const CheckButton = styled.button<{ ischecked: string, appear:boolean }>`
   color: ${(props) =>
     props.ischecked === "true" ? palette.black : palette.gray};
   outline: none;
   text-align: center;
-  width: 5.5rem;
-  padding: 1rem;
+  width: ${props=>props.appear?'0':'5.5rem'};
+  padding: ${props=>props.appear?'0':'1rem'};
   font-size: 1rem;
 `;

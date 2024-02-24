@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Orbit } from "next/font/google";
 import "./globals.css";
 import Providers from "./components/Providers";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 
-const inter = Inter({ subsets: ["latin"] });
+const orbit = Orbit({ subsets: ['latin'], weight:['400'], });
 
 export const metadata: Metadata = {
   title: "TO-DO",
@@ -21,10 +21,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
+
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Providers session={session}>{children}</Providers>
+      <body className={orbit.className}>
+        <Providers session={session}>
+            {children}
+        </Providers>
       </body>
     </html>
   );

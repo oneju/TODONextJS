@@ -23,6 +23,7 @@ const Todo = () => {
 };
 export default Todo;
 const TodoPage = styled.main`
+  height: 100%;
   width: 100vw;
   @media (min-width: 960px) {
     width: 900px;
@@ -31,8 +32,9 @@ const TodoPage = styled.main`
 `;
 const Size = styled.div`
   width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
