@@ -8,9 +8,8 @@ import palette from "@/styles/palette";
 
 const NewTodo = () => {
   const [newTodo, setNewTodo] = useState("");
-  const queryClient = useQueryClient();
   const { data: session } = useSession();
-
+  
   const postTodo = async () => {
     await axios.post("/api/todo", {
       headers: { "Content-Type": "application/json" },
@@ -22,7 +21,8 @@ const NewTodo = () => {
     });
     setNewTodo("");
   };
-
+  
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: postTodo,
     onSuccess: () => {
@@ -31,7 +31,7 @@ const NewTodo = () => {
     },
   });
   return (
-    <AddTodo>
+    <AddTodo >
       <TodoContent
         onChange={(e) => setNewTodo(e.target.value)}
         value={newTodo}
@@ -39,7 +39,8 @@ const NewTodo = () => {
         autoFocus={true}
       />
       <SubmitButton
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           mutation.mutate();
         }}
         disabled={newTodo === "" ? true : false}
@@ -56,8 +57,6 @@ const AddTodo = styled.form`
 
   background-color: #d9d9d9;
   width: 80%;
-  bottom: 0px;
-  position: absolute;
   padding: 2rem;
   border-radius: 4rem;
   margin: 1rem;
@@ -68,7 +67,7 @@ const AddTodo = styled.form`
   align-items: center;
   @media (max-width: 600px) {
     box-shadow: 0;
-    margin: 0;
+    margin: 2rem 0 0 0;
     width: 100vw;
     border-radius: 0;
   }
