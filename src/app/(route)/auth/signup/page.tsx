@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { inter } from "@/app/utils/fonts";
+import Link from "next/link";
 
 const Signup = () => {
   const router = useRouter();
@@ -72,8 +72,9 @@ const Signup = () => {
           placeholder="enter password"
           required
         ></Input>
-        <ErrorMsg className={inter.className}>{isError}</ErrorMsg>
+        <ErrorMsg>{isError}</ErrorMsg>
         <Button onClick={handleSubmit}>Join</Button>
+        <Link href="/auth/signin">Log in</Link>
       </Container>
     </SignupContainer>
   );
