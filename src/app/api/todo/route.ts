@@ -25,7 +25,7 @@ export async function POST(req: Request, res: NextResponse) {
       const todo = {
         content: data.content,
         checked: false,
-        publisherId: data.user,
+        authorId: data.user,
       };
       await prisma.todo.create({ data: todo });
       return NextResponse.json(data);

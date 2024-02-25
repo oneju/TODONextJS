@@ -4,6 +4,6 @@ export interface todo {
   id: number;
   content: string;
   checked: boolean;
-  publisher: Session;
-  publisherId: number;
+  author: Session;
+  authorId: string;
 }
