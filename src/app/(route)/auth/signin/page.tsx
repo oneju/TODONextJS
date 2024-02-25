@@ -4,7 +4,7 @@ import { signIn } from "next-auth/react";
 import styled from "@emotion/styled";
 import palette from "@/styles/palette";
 import { useRouter } from "next/navigation";
-import { inter } from "@/app/utils/fonts";
+import Link from "next/link";
 
 const Login = () => {
   const router = useRouter();
@@ -20,11 +20,11 @@ const Login = () => {
       redirect: false,
     });
 
-    if (result && result.status===401) {
-      setIsError('로그인에 실패했습니다.');
+    if (result && result.status!==401) {
+      router.push('/todo')
     }
     else {
-      router.push('/todo')
+      setIsError('로그인에 실패했습니다.');
     }
   };
   return (
@@ -49,9 +49,9 @@ const Login = () => {
           type="password"
           placeholder="enter password"
         ></Input>
-        <ErrorMsg className={inter.className}>{isError}</ErrorMsg>
+        <ErrorMsg>{isError}</ErrorMsg>
         <Button onClick={handleSubmit}>Log in</Button>
-        <a href="/auth/signup">sign Up</a>
+        <Link href="/auth/signup">sign Up</Link>
       </LoginContainer>
     </LoginPage>
   );
