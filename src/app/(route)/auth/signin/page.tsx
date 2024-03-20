@@ -19,8 +19,7 @@ const Login = () => {
       password: passwordRef.current,
       redirect: false,
     });
-
-    if (result && result.status!==401) {
+    if (result && result.ok) {
       router.push('/todo')
     }
     else {
